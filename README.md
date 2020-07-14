@@ -1,4 +1,4 @@
-# golang-server-client
+# Golang server client
 A concurrent TCP server and client application
 
 ## Usage
