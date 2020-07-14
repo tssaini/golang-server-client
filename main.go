@@ -10,7 +10,7 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		log.Fatalf("Usage go run . server")
+		log.Fatalf("Usage: ./golang-server-client {server|client}")
 	}
 	port := 8080
 	switch os.Args[1] {
@@ -54,6 +54,7 @@ func handleConnection(conn net.Conn) {
 
 func client(port int) {
 	conn, err := net.Dial("tcp", fmt.Sprintf("127.0.0.1:%v", port))
+	defer conn.Close()
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -63,7 +64,7 @@ func client(port int) {
 		text, _ := reader.ReadString('\n')
 		_, err := fmt.Fprintf(conn, text+"\n")
 		if err != nil {
-			log.Fatalf("Unable to send message to sever")
+			log.Fatalf("Unable to send message to server")
 		}
 	}
 }
